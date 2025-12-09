@@ -1,0 +1,11 @@
+# Core CLI and utilities
+click
+pybase64
+pytest
+
+# AES removed per user request, so no crypto backend required.
+
+# GUI (Tkinter ships with CPython; no extra deps). Add pillow if you want icons.
+# pillow
+
+
