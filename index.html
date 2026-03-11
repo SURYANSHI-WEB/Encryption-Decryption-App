@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cipher Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="header-tag">✦ Cipher Studio</div>
+    <h1>Encode. Decode. <em>Encrypt.</em></h1>
+    <p class="subtitle">A collection of classic ciphers and encoding tools — beautifully simple.</p>
+  </header>
+
+  <div class="divider"><span class="divider-icon">◆</span></div>
+
+  <div class="tabs">
+    <button class="tab active" data-cipher="caesar">Caesar</button>
+    <button class="tab" data-cipher="rot13">ROT13</button>
+    <button class="tab" data-cipher="vigenere">Vigenère</button>
+    <button class="tab" data-cipher="atbash">Atbash</button>
+    <button class="tab" data-cipher="base64">Base64</button>
+    <button class="tab" data-cipher="morse">Morse Code</button>
+  </div>
+
+  <!-- CAESAR -->
+  <div class="cipher-panel active" id="panel-caesar">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="cipher-title">Caesar Cipher</div>
+          <div class="cipher-desc">Shifts each letter by a fixed number in the alphabet</div>
+        </div>
+        <div class="mode-toggle">
+          <button class="mode-btn active" data-cipher="caesar" data-mode="encrypt">Encrypt</button>
+          <button class="mode-btn" data-cipher="caesar" data-mode="decrypt">Decrypt</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="options-row">
+          <div class="option-group">
+            <label>Shift Amount</label>
+            <input type="number" id="caesar-shift" value="3" min="1" max="25" />
+          </div>
+        </div>
+        <div class="io-grid">
+          <div class="io-col">
+            <div class="io-label">Input</div>
+            <textarea id="caesar-input" placeholder="Type your message here…"></textarea>
+          </div>
+          <div class="arrow-col">→</div>
+          <div class="io-col">
+            <div class="io-label">Output</div>
+            <textarea id="caesar-output" readonly placeholder="Result appears here…"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" data-run="caesar">Run Cipher</button>
+          <button class="btn-secondary" data-clear="caesar">Clear</button>
+          <button class="btn-secondary" data-copy="caesar">Copy Output</button>
+          <span class="copy-feedback" id="copy-caesar">Copied!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROT13 -->
+  <div class="cipher-panel" id="panel-rot13">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="cipher-title">ROT13</div>
+          <div class="cipher-desc">Rotates each letter by 13 positions — its own inverse</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="io-grid">
+          <div class="io-col">
+            <div class="io-label">Input</div>
+            <textarea id="rot13-input" placeholder="Type your message here…"></textarea>
+          </div>
+          <div class="arrow-col">→</div>
+          <div class="io-col">
+            <div class="io-label">Output</div>
+            <textarea id="rot13-output" readonly placeholder="Result appears here…"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" data-run="rot13">Run ROT13</button>
+          <button class="btn-secondary" data-clear="rot13">Clear</button>
+          <button class="btn-secondary" data-copy="rot13">Copy Output</button>
+          <span class="copy-feedback" id="copy-rot13">Copied!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIGENERE -->
+  <div class="cipher-panel" id="panel-vigenere">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="cipher-title">Vigenère Cipher</div>
+          <div class="cipher-desc">Uses a keyword to shift letters — much stronger than Caesar</div>
+        </div>
+        <div class="mode-toggle">
+          <button class="mode-btn active" data-cipher="vigenere" data-mode="encrypt">Encrypt</button>
+          <button class="mode-btn" data-cipher="vigenere" data-mode="decrypt">Decrypt</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="options-row">
+          <div class="option-group">
+            <label>Keyword</label>
+            <input type="text" id="vigenere-key" placeholder="e.g. SECRET" style="width:180px;text-transform:uppercase"/>
+          </div>
+        </div>
+        <div class="io-grid">
+          <div class="io-col">
+            <div class="io-label">Input</div>
+            <textarea id="vigenere-input" placeholder="Type your message here…"></textarea>
+          </div>
+          <div class="arrow-col">→</div>
+          <div class="io-col">
+            <div class="io-label">Output</div>
+            <textarea id="vigenere-output" readonly placeholder="Result appears here…"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" data-run="vigenere">Run Cipher</button>
+          <button class="btn-secondary" data-clear="vigenere">Clear</button>
+          <button class="btn-secondary" data-copy="vigenere">Copy Output</button>
+          <span class="copy-feedback" id="copy-vigenere">Copied!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATBASH -->
+  <div class="cipher-panel" id="panel-atbash">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="cipher-title">Atbash Cipher</div>
+          <div class="cipher-desc">Mirrors the alphabet — A↔Z, B↔Y, C↔X…</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="io-grid">
+          <div class="io-col">
+            <div class="io-label">Input</div>
+            <textarea id="atbash-input" placeholder="Type your message here…"></textarea>
+          </div>
+          <div class="arrow-col">→</div>
+          <div class="io-col">
+            <div class="io-label">Output</div>
+            <textarea id="atbash-output" readonly placeholder="Result appears here…"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" data-run="atbash">Run Atbash</button>
+          <button class="btn-secondary" data-clear="atbash">Clear</button>
+          <button class="btn-secondary" data-copy="atbash">Copy Output</button>
+          <span class="copy-feedback" id="copy-atbash">Copied!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BASE64 -->
+  <div class="cipher-panel" id="panel-base64">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="cipher-title">Base64</div>
+          <div class="cipher-desc">Encodes binary data as ASCII text — not encryption, but useful</div>
+        </div>
+        <div class="mode-toggle">
+          <button class="mode-btn active" data-cipher="base64" data-mode="encrypt">Encode</button>
+          <button class="mode-btn" data-cipher="base64" data-mode="decrypt">Decode</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="io-grid">
+          <div class="io-col">
+            <div class="io-label">Input</div>
+            <textarea id="base64-input" placeholder="Type your message here…"></textarea>
+          </div>
+          <div class="arrow-col">→</div>
+          <div class="io-col">
+            <div class="io-label">Output</div>
+            <textarea id="base64-output" readonly placeholder="Result appears here…"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" data-run="base64">Run Base64</button>
+          <button class="btn-secondary" data-clear="base64">Clear</button>
+          <button class="btn-secondary" data-copy="base64">Copy Output</button>
+          <span class="copy-feedback" id="copy-base64">Copied!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORSE -->
+  <div class="cipher-panel" id="panel-morse">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="cipher-title">Morse Code</div>
+          <div class="cipher-desc">Converts text to dots and dashes — and back</div>
+        </div>
+        <div class="mode-toggle">
+          <button class="mode-btn active" data-cipher="morse" data-mode="encrypt">Text → Morse</button>
+          <button class="mode-btn" data-cipher="morse" data-mode="decrypt">Morse → Text</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="io-grid">
+          <div class="io-col">
+            <div class="io-label">Input</div>
+            <textarea id="morse-input" placeholder="Type your message here…"></textarea>
+          </div>
+          <div class="arrow-col">→</div>
+          <div class="io-col">
+            <div class="io-label">Output</div>
+            <textarea id="morse-output" readonly placeholder="Result appears here…"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" data-run="morse">Convert</button>
+          <button class="btn-secondary" data-clear="morse">Clear</button>
+          <button class="btn-secondary" data-copy="morse">Copy Output</button>
+          <span class="copy-feedback" id="copy-morse">Copied!</span>
+          <button class="btn-secondary" id="morse-ref-toggle">View reference chart</button>
+        </div>
+        <div class="morse-ref" id="morse-ref">
+          <div class="io-label">Morse Code Reference</div>
+          <div class="morse-grid" id="morse-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">Cipher Studio</div>
+    <div class="footer-sub">Built by Suryanshi Singh · Classic ciphers, modern aesthetic</div>
+  </footer>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
