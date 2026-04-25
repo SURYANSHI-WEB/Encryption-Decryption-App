@@ -6,7 +6,7 @@ An interactive encryption & decryption tool built to explore classic cipher tech
 
 ## 🌐 Live Demo
 
-[cipher-studio.live](https://suryanshi-web.github.io/Encryption-Decryption-App/)
+[cipher-studio.live](https://suryanshi-web.github.io/Cipher-Studio/)
 
 ---
 
