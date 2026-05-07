@@ -403,7 +403,6 @@ textarea::placeholder {
 }
 
 /* ── Morse Reference ── */
-
 .morse-ref {
   display: none;
   background: var(--beige);

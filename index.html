@@ -18,13 +18,15 @@
 
   <div class="divider"><span class="divider-icon">◆</span></div>
 
+  <!-- TABS -->
   <div class="tabs">
-    <button class="tab active" data-cipher="caesar">Caesar</button>
-    <button class="tab" data-cipher="rot13">ROT13</button>
-    <button class="tab" data-cipher="vigenere">Vigenère</button>
-    <button class="tab" data-cipher="atbash">Atbash</button>
-    <button class="tab" data-cipher="base64">Base64</button>
-    <button class="tab" data-cipher="morse">Morse Code</button>
+    <button class="tab active" onclick="switchTab('caesar')">Caesar</button>
+    <button class="tab" onclick="switchTab('rot13')">ROT13</button>
+    <button class="tab" onclick="switchTab('vigenere')">Vigenère</button>
+    <button class="tab" onclick="switchTab('atbash')">Atbash</button>
+    <button class="tab" onclick="switchTab('base64')">Base64</button>
+    <button class="tab" onclick="switchTab('morse')">Morse Code</button>
+    <button class="tab" onclick="switchTab('steg')">Steganography</button>
   </div>
 
   <!-- CAESAR -->
@@ -36,21 +38,21 @@
           <div class="cipher-desc">Shifts each letter by a fixed number in the alphabet</div>
         </div>
         <div class="mode-toggle">
-          <button class="mode-btn active" data-cipher="caesar" data-mode="encrypt">Encrypt</button>
-          <button class="mode-btn" data-cipher="caesar" data-mode="decrypt">Decrypt</button>
+          <button class="mode-btn active" id="caesar-encrypt-btn" onclick="setCaesarMode('encrypt')">Encrypt</button>
+          <button class="mode-btn" id="caesar-decrypt-btn" onclick="setCaesarMode('decrypt')">Decrypt</button>
         </div>
       </div>
       <div class="card-body">
         <div class="options-row">
           <div class="option-group">
             <label>Shift Amount</label>
-            <input type="number" id="caesar-shift" value="3" min="1" max="25" />
+            <input type="number" id="caesar-shift" value="3" min="1" max="25" oninput="runCaesar()" />
           </div>
         </div>
         <div class="io-grid">
           <div class="io-col">
             <div class="io-label">Input</div>
-            <textarea id="caesar-input" placeholder="Type your message here…"></textarea>
+            <textarea id="caesar-input" placeholder="Type your message here…" oninput="runCaesar()"></textarea>
           </div>
           <div class="arrow-col">→</div>
           <div class="io-col">
@@ -59,9 +61,9 @@
           </div>
         </div>
         <div class="actions">
-          <button class="btn-primary" data-run="caesar">Run Cipher</button>
-          <button class="btn-secondary" data-clear="caesar">Clear</button>
-          <button class="btn-secondary" data-copy="caesar">Copy Output</button>
+          <button class="btn-primary" onclick="runCaesar()">Run Cipher</button>
+          <button class="btn-secondary" onclick="clearPanel('caesar')">Clear</button>
+          <button class="btn-secondary" onclick="copyOutput('caesar')">Copy Output</button>
           <span class="copy-feedback" id="copy-caesar">Copied!</span>
         </div>
       </div>
@@ -81,7 +83,7 @@
         <div class="io-grid">
           <div class="io-col">
             <div class="io-label">Input</div>
-            <textarea id="rot13-input" placeholder="Type your message here…"></textarea>
+            <textarea id="rot13-input" placeholder="Type your message here…" oninput="runROT13()"></textarea>
           </div>
           <div class="arrow-col">→</div>
           <div class="io-col">
@@ -90,9 +92,9 @@
           </div>
         </div>
         <div class="actions">
-          <button class="btn-primary" data-run="rot13">Run ROT13</button>
-          <button class="btn-secondary" data-clear="rot13">Clear</button>
-          <button class="btn-secondary" data-copy="rot13">Copy Output</button>
+          <button class="btn-primary" onclick="runROT13()">Run ROT13</button>
+          <button class="btn-secondary" onclick="clearPanel('rot13')">Clear</button>
+          <button class="btn-secondary" onclick="copyOutput('rot13')">Copy Output</button>
           <span class="copy-feedback" id="copy-rot13">Copied!</span>
         </div>
       </div>
@@ -108,21 +110,21 @@
           <div class="cipher-desc">Uses a keyword to shift letters — much stronger than Caesar</div>
         </div>
         <div class="mode-toggle">
-          <button class="mode-btn active" data-cipher="vigenere" data-mode="encrypt">Encrypt</button>
-          <button class="mode-btn" data-cipher="vigenere" data-mode="decrypt">Decrypt</button>
+          <button class="mode-btn active" id="vigenere-encrypt-btn" onclick="setVigenereMode('encrypt')">Encrypt</button>
+          <button class="mode-btn" id="vigenere-decrypt-btn" onclick="setVigenereMode('decrypt')">Decrypt</button>
         </div>
       </div>
       <div class="card-body">
         <div class="options-row">
           <div class="option-group">
             <label>Keyword</label>
-            <input type="text" id="vigenere-key" placeholder="e.g. SECRET" style="width:180px;text-transform:uppercase"/>
+            <input type="text" id="vigenere-key" placeholder="e.g. SECRET" style="width:180px;text-transform:uppercase" oninput="runVigenere()" />
           </div>
         </div>
         <div class="io-grid">
           <div class="io-col">
             <div class="io-label">Input</div>
-            <textarea id="vigenere-input" placeholder="Type your message here…"></textarea>
+            <textarea id="vigenere-input" placeholder="Type your message here…" oninput="runVigenere()"></textarea>
           </div>
           <div class="arrow-col">→</div>
           <div class="io-col">
@@ -131,9 +133,9 @@
           </div>
         </div>
         <div class="actions">
-          <button class="btn-primary" data-run="vigenere">Run Cipher</button>
-          <button class="btn-secondary" data-clear="vigenere">Clear</button>
-          <button class="btn-secondary" data-copy="vigenere">Copy Output</button>
+          <button class="btn-primary" onclick="runVigenere()">Run Cipher</button>
+          <button class="btn-secondary" onclick="clearPanel('vigenere')">Clear</button>
+          <button class="btn-secondary" onclick="copyOutput('vigenere')">Copy Output</button>
           <span class="copy-feedback" id="copy-vigenere">Copied!</span>
         </div>
       </div>
@@ -153,7 +155,7 @@
         <div class="io-grid">
           <div class="io-col">
             <div class="io-label">Input</div>
-            <textarea id="atbash-input" placeholder="Type your message here…"></textarea>
+            <textarea id="atbash-input" placeholder="Type your message here…" oninput="runAtbash()"></textarea>
           </div>
           <div class="arrow-col">→</div>
           <div class="io-col">
@@ -162,9 +164,9 @@
           </div>
         </div>
         <div class="actions">
-          <button class="btn-primary" data-run="atbash">Run Atbash</button>
-          <button class="btn-secondary" data-clear="atbash">Clear</button>
-          <button class="btn-secondary" data-copy="atbash">Copy Output</button>
+          <button class="btn-primary" onclick="runAtbash()">Run Atbash</button>
+          <button class="btn-secondary" onclick="clearPanel('atbash')">Clear</button>
+          <button class="btn-secondary" onclick="copyOutput('atbash')">Copy Output</button>
           <span class="copy-feedback" id="copy-atbash">Copied!</span>
         </div>
       </div>
@@ -180,15 +182,15 @@
           <div class="cipher-desc">Encodes binary data as ASCII text — not encryption, but useful</div>
         </div>
         <div class="mode-toggle">
-          <button class="mode-btn active" data-cipher="base64" data-mode="encrypt">Encode</button>
-          <button class="mode-btn" data-cipher="base64" data-mode="decrypt">Decode</button>
+          <button class="mode-btn active" id="base64-encrypt-btn" onclick="setBase64Mode('encode')">Encode</button>
+          <button class="mode-btn" id="base64-decrypt-btn" onclick="setBase64Mode('decode')">Decode</button>
         </div>
       </div>
       <div class="card-body">
         <div class="io-grid">
           <div class="io-col">
             <div class="io-label">Input</div>
-            <textarea id="base64-input" placeholder="Type your message here…"></textarea>
+            <textarea id="base64-input" placeholder="Type your message here…" oninput="runBase64()"></textarea>
           </div>
           <div class="arrow-col">→</div>
           <div class="io-col">
@@ -197,9 +199,9 @@
           </div>
         </div>
         <div class="actions">
-          <button class="btn-primary" data-run="base64">Run Base64</button>
-          <button class="btn-secondary" data-clear="base64">Clear</button>
-          <button class="btn-secondary" data-copy="base64">Copy Output</button>
+          <button class="btn-primary" onclick="runBase64()">Run Base64</button>
+          <button class="btn-secondary" onclick="clearPanel('base64')">Clear</button>
+          <button class="btn-secondary" onclick="copyOutput('base64')">Copy Output</button>
           <span class="copy-feedback" id="copy-base64">Copied!</span>
         </div>
       </div>
@@ -215,15 +217,15 @@
           <div class="cipher-desc">Converts text to dots and dashes — and back</div>
         </div>
         <div class="mode-toggle">
-          <button class="mode-btn active" data-cipher="morse" data-mode="encrypt">Text → Morse</button>
-          <button class="mode-btn" data-cipher="morse" data-mode="decrypt">Morse → Text</button>
+          <button class="mode-btn active" id="morse-encrypt-btn" onclick="setMorseMode('encrypt')">Text → Morse</button>
+          <button class="mode-btn" id="morse-decrypt-btn" onclick="setMorseMode('decrypt')">Morse → Text</button>
         </div>
       </div>
       <div class="card-body">
         <div class="io-grid">
           <div class="io-col">
             <div class="io-label">Input</div>
-            <textarea id="morse-input" placeholder="Type your message here…"></textarea>
+            <textarea id="morse-input" placeholder="Type your message here…" oninput="runMorse()"></textarea>
           </div>
           <div class="arrow-col">→</div>
           <div class="io-col">
@@ -232,15 +234,54 @@
           </div>
         </div>
         <div class="actions">
-          <button class="btn-primary" data-run="morse">Convert</button>
-          <button class="btn-secondary" data-clear="morse">Clear</button>
-          <button class="btn-secondary" data-copy="morse">Copy Output</button>
+          <button class="btn-primary" onclick="runMorse()">Convert</button>
+          <button class="btn-secondary" onclick="clearPanel('morse')">Clear</button>
+          <button class="btn-secondary" onclick="copyOutput('morse')">Copy Output</button>
           <span class="copy-feedback" id="copy-morse">Copied!</span>
-          <button class="btn-secondary" id="morse-ref-toggle">View reference chart</button>
+          <button class="btn-secondary" onclick="toggleMorseRef()">View reference chart</button>
         </div>
         <div class="morse-ref" id="morse-ref">
           <div class="io-label">Morse Code Reference</div>
           <div class="morse-grid" id="morse-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEGANOGRAPHY -->
+  <div class="cipher-panel" id="panel-steg">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="cipher-title">Image Vault</div>
+          <div class="cipher-desc">Hide secret text inside an image using LSB Steganography</div>
+        </div>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="steg-encrypt-btn" onclick="setStegMode('encrypt')">Hide</button>
+          <button class="mode-btn" id="steg-decrypt-btn" onclick="setStegMode('decrypt')">Reveal</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="options-row">
+          <div class="option-group">
+            <label>Upload Image (PNG/JPG)</label>
+            <input type="file" id="steg-image" accept="image/png, image/jpeg" style="width: 250px;" />
+          </div>
+        </div>
+        <div class="io-grid">
+          <div class="io-col">
+            <div class="io-label">Secret Message (to hide)</div>
+            <textarea id="steg-input" placeholder="Type secret message… (leave blank if revealing)"></textarea>
+          </div>
+          <div class="arrow-col">→</div>
+          <div class="io-col">
+            <div class="io-label">Output</div>
+            <textarea id="steg-output" readonly placeholder="Revealed message or status will appear here…"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" onclick="runSteg()">Process Image</button>
+          <span class="copy-feedback" id="steg-status" style="opacity:1; margin-left:15px;"></span>
         </div>
       </div>
     </div>
