@@ -5,8 +5,8 @@ from typing import cast, Tuple
 import io
 
 app = Flask(__name__)
-CORS(app)  # Allow requests from the browser (different port)
-
+# Explicitly allow your GitHub Pages frontend to talk to this backend
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # ── Helper: convert text to binary string ─────────────────────────────────────
 # Example: "Hi" → "0100100001101001"
